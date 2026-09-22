@@ -1,0 +1,102 @@
+<Page
+    x:Class="Stratum.Windows.Views.BackupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer>
+        <StackPanel Spacing="14" Padding="16" MaxWidth="720" HorizontalAlignment="Left">
+
+            <TextBlock Text="Backup" FontSize="20" FontWeight="Bold" />
+            <TextBlock Text="O formato .stratum é o mesmo do app Android: você pode levar o arquivo de um para o outro."
+                       TextWrapping="Wrap" Opacity="0.7" />
+            <Grid ColumnSpacing="12" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="0" Content="Backup criptografado (.stratum)"
+                        HorizontalAlignment="Stretch" Click="BackupEncrypted_Click" />
+                <Button Grid.Row="0" Grid.Column="1" Content="Backup sem senha (.stratum)"
+                        HorizontalAlignment="Stretch" Click="BackupPlain_Click" />
+                <Button Grid.Row="1" Grid.Column="0" Content="Exportar HTML"
+                        HorizontalAlignment="Stretch" Click="ExportHtml_Click" />
+                <Button Grid.Row="1" Grid.Column="1" Content="Exportar lista de URIs (.txt)"
+                        HorizontalAlignment="Stretch" Click="ExportUriList_Click" />
+            </Grid>
+
+            <TextBlock Text="Restaurar / importar" FontSize="20" FontWeight="Bold" />
+            <Grid ColumnSpacing="12" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ComboBox x:Name="ImportSourceBox" Grid.Row="0" Grid.Column="0" Header="Origem" HorizontalAlignment="Stretch" />
+                <PasswordBox x:Name="ImportPasswordBox" Grid.Row="0" Grid.Column="1" Header="Senha do arquivo (se houver)"
+                             VerticalAlignment="Bottom" />
+                <Button Grid.Row="1" Grid.Column="0" Content="Escolher arquivo e importar"
+                        HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}"
+                        Click="ImportButton_Click" />
+                <CheckBox x:Name="UpdateExistingCheck" Grid.Row="1" Grid.Column="1" Content="Atualizar existentes"
+                          IsChecked="True" VerticalAlignment="Center" />
+            </Grid>
+            <TextBlock Text="Formatos: Stratum, Aegis, andOTP, FreeOTP, FreeOTP+, Google Authenticator, 2FAS, Bitwarden, Ente, KeePass, LastPass, Proton, TOTP Authenticator, WinAuth, Authenticator Plus, lista de URIs, HTML."
+                       TextWrapping="Wrap" Opacity="0.7" />
+
+            <TextBlock Text="Backup automático" FontSize="20" FontWeight="Bold" />
+            <Grid ColumnSpacing="12" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <CheckBox x:Name="AutoBackupCheck" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                          Content="Fazer backup automático a cada alteração" VerticalAlignment="Center" />
+                <TextBox x:Name="AutoBackupFolderBox" Grid.Row="1" Grid.Column="0" IsReadOnly="True"
+                         PlaceholderText="Pasta do backup automático" VerticalAlignment="Center" />
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Content="Escolher pasta…" Click="AutoBackupFolderButton_Click" />
+                    <Button Content="Salvar" Click="SaveAutoBackupButton_Click" />
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Text="Restauração automática" FontSize="20" FontWeight="Bold" />
+            <TextBlock Text="Ao abrir o app, oferece restaurar se houver um backup .stratum mais novo na pasta."
+                       TextWrapping="Wrap" Opacity="0.7" />
+            <Grid ColumnSpacing="12" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <CheckBox x:Name="AutoRestoreCheck" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                          Content="Verificar backup mais novo ao abrir" VerticalAlignment="Center" />
+                <TextBox x:Name="AutoRestoreFolderBox" Grid.Row="1" Grid.Column="0" IsReadOnly="True"
+                         PlaceholderText="Pasta da restauração automática" VerticalAlignment="Center" />
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Content="Escolher pasta…" Click="AutoRestoreFolderButton_Click" />
+                    <Button Content="Salvar" Click="SaveAutoRestoreButton_Click" />
+                </StackPanel>
+            </Grid>
+
+            <InfoBar x:Name="StatusBar" IsOpen="False" IsClosable="True" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

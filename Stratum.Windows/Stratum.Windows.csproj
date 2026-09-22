@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+        <RootNamespace>Stratum.Windows</RootNamespace>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <Platforms>x86;x64;ARM64</Platforms>
+        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+        <UseWinUI>true</UseWinUI>
+        <WindowsPackageType>None</WindowsPackageType>
+        <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <AssemblyName>Stratum</AssemblyName>
+        <Version>1.0.0</Version>
+        <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260804001" />
+        <PackageReference Include="QRCoder" Version="1.8.0" />
+        <PackageReference Include="Serilog" Version="4.3.1" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="SimpleBase" Version="5.6.0" />
+        <PackageReference Include="SkiaSharp" Version="3.119.2" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.2" />
+        <PackageReference Include="SQLitePCLRaw.provider.e_sqlcipher" Version="2.1.11" />
+        <PackageReference Include="SQLitePCLRaw.lib.e_sqlcipher" Version="2.1.11" />
+        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+        <PackageReference Include="ZXing.Net" Version="0.16.*" />
+        <PackageReference Include="sqlite-net-base" Version="1.9.172" />
+        <PackageReference Include="StratumAuth.SQLCipher" Version="1.5.0" />
+        <ProjectReference Include="..\Stratum.Core\Stratum.Core.csproj" />
+        <ProjectReference Include="..\Stratum.Windows.Tray\Stratum.Windows.Tray.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Assets\backup_template.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <!-- app.ico também vai junto do exe: AppWindow.SetIcon exige o arquivo no disco -->
+        <Content Include="Assets\app.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <!-- Logo para a title bar customizada -->
+        <Content Include="..\doc\Rebranding\icon_transparent.png" Link="Assets\logo.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <!-- Brand icons shared with the Android app (light + _dark variants) -->
+        <Content Include="..\icons\*.png" Link="Assets\Icons\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <!-- dotnet publish omits the app's compiled XAML (.xbf) and PRI index for
+         unpackaged WinUI apps, which fail-fast at startup without them. -->
+    <!-- dotnet publish omits the app's compiled XAML (.xbf) and PRI index for
+         unpackaged WinUI apps, which fail-fast at startup without them.
+         Copy them explicitly after publish (idempotent, no item conflicts). -->
+    <Target Name="CopyAppXamlResourcesToPublish" AfterTargets="Publish"
+            Condition="'$(PublishDir)' != ''">
+        <ItemGroup>
+            <XamlPriPublishViews Include="$(OutDir)Views\*.xbf" />
+        </ItemGroup>
+        <MakeDir Directories="$(PublishDir)Views" />
+        <Copy SourceFiles="$(OutDir)App.xbf;$(OutDir)MainWindow.xbf;$(OutDir)$(TargetName).pri"
+              DestinationFolder="$(PublishDir)"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(XamlPriPublishViews)" DestinationFolder="$(PublishDir)Views" SkipUnchangedFiles="true" />
+    </Target>
+</Project>

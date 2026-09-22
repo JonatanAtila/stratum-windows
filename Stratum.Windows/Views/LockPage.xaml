@@ -1,0 +1,35 @@
+<Page
+    x:Class="Stratum.Windows.Views.LockPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <StackPanel MaxWidth="420" Spacing="12" VerticalAlignment="Center"
+                    HorizontalAlignment="Center" Margin="24">
+            <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image x:Name="LogoImage" Width="64" Height="64" VerticalAlignment="Center" />
+                <TextBlock Text="Stratum" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock x:Name="SubtitleText" TextWrapping="Wrap" HorizontalAlignment="Center"
+                       Opacity="0.7" TextAlignment="Center" />
+
+            <PasswordBox x:Name="PasswordBox" PlaceholderText="Senha do banco de dados"
+                         PasswordRevealMode="Peek" KeyDown="PasswordBox_KeyDown" />
+            <PasswordBox x:Name="ConfirmBox" PlaceholderText="Confirmar senha"
+                         Visibility="Collapsed" />
+
+            <Button x:Name="UnlockButton" Content="Desbloquear" HorizontalAlignment="Stretch"
+                    Style="{StaticResource AccentButtonStyle}" Click="UnlockButton_Click" />
+            <Button x:Name="HelloButton" Content="Desbloquear com Windows Hello" HorizontalAlignment="Stretch"
+                    Visibility="Collapsed" Click="HelloButton_Click" />
+            <Button x:Name="NoPasswordButton" Content="Continuar sem senha" HorizontalAlignment="Stretch"
+                    Visibility="Collapsed" Click="NoPasswordButton_Click" />
+
+            <HyperlinkButton x:Name="ResetButton" Content="Esqueci a senha / recomeçar do zero"
+                             HorizontalAlignment="Center" Visibility="Collapsed"
+                             Click="ResetButton_Click" />
+
+            <InfoBar x:Name="ErrorBar" Severity="Error" IsOpen="False" IsClosable="True" />
+        </StackPanel>
+    </Grid>
+</Page>
