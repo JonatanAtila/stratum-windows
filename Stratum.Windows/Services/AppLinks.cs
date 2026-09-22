@@ -8,8 +8,7 @@ namespace Stratum.Windows.Services
         public const string OriginalRepoUrl = "https://github.com/stratumauth/app";
 
         /// <summary>Repositório desta versão Windows.</summary>
-        // TODO: substituir pela URL real quando o repositório for criado.
-        public const string WindowsRepoUrl = "https://github.com/exemplo/stratum-windows";
+        public const string WindowsRepoUrl = "https://github.com/JonatanAtila/stratum-windows";
 
         public const string Creator = "jamie-mh";
         public const string CreatorUrl = "https://github.com/jamie-mh";
