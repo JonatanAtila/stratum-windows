@@ -16,9 +16,6 @@ namespace Stratum.Windows.Views
         {
             InitializeComponent();
             VersionText.Text = "Versão 1.0.0 — WinUI 3 / .NET 10";
-            CreditsText.Text = "Núcleo, criptografia, formato de backup e pack de ícones: projeto original " +
-                "Stratum para Android, criado por jamiemh. Todo o crédito vai para o projeto original. " +
-                "Licença: GPL-3.0-only.";
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -129,6 +126,12 @@ namespace Stratum.Windows.Views
         private async void OriginalButton_Click(object sender, RoutedEventArgs e)
         {
             await OpenUrlAsync(AppLinks.OriginalRepoUrl);
+        }
+
+        private async void CreatorLink_Click(Microsoft.UI.Xaml.Documents.Hyperlink sender,
+            Microsoft.UI.Xaml.Documents.HyperlinkClickEventArgs args)
+        {
+            await OpenUrlAsync("https://github.com/jamiemh");
         }
 
         private async System.Threading.Tasks.Task OpenUrlAsync(string url)
