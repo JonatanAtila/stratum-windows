@@ -131,7 +131,7 @@ namespace Stratum.Windows.Views
         private async void CreatorLink_Click(Microsoft.UI.Xaml.Documents.Hyperlink sender,
             Microsoft.UI.Xaml.Documents.HyperlinkClickEventArgs args)
         {
-            await OpenUrlAsync("https://github.com/jamiemh");
+            await OpenUrlAsync(AppLinks.CreatorUrl);
         }
 
         private async System.Threading.Tasks.Task OpenUrlAsync(string url)

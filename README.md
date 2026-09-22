@@ -73,7 +73,7 @@ Estrutura: `Stratum.Core/` (núcleo compartilhado), `Stratum.Windows/` (app WinU
 
 ## Créditos ❤️
 
-Este app é construído sobre o núcleo do **[Stratum para Android](https://github.com/stratumauth/app)**, criado por **jamiemh** — todo o crédito pela criptografia, formato de backup, conversores e pack de ícones vai para o projeto original.
+Este app é construído sobre o núcleo do **[Stratum para Android](https://github.com/stratumauth/app)**, criado por **jamie-mh** — todo o crédito pela criptografia, formato de backup, conversores e pack de ícones vai para o projeto original.
 
 Se quiser apoiar o desenvolvimento do projeto original: [Buy Me a Coffee](https://www.buymeacoffee.com/jamiemh).
 

@@ -101,7 +101,7 @@
             <TextBlock Text="Stratum para Windows 1.0.0 — gerenciador de autenticação de dois fatores (TOTP, HOTP, mOTP, Steam, Yandex). Adicione contas manualmente, por URI, QR de imagem ou importando um backup; os códigos se atualizam sozinhos a cada período e um toque copia para a área de transferência. Organize com categorias, proteja o banco com senha ou Windows Hello e mantenha backups criptografados (.stratum) intercambiáveis com o app Android."
                        TextWrapping="Wrap" Opacity="0.8" />
             <TextBlock x:Name="VersionText" Opacity="0.6" />
-            <TextBlock TextWrapping="Wrap" Opacity="0.8"><Run Text="Núcleo, criptografia, formato de backup e pack de ícones: projeto original Stratum para Android, criado por " /><Hyperlink Click="CreatorLink_Click"><Run Text="jamiemh" /></Hyperlink><Run Text=". Todo o crédito vai para o projeto original. Licença: GPL-3.0-only." /></TextBlock>
+            <TextBlock TextWrapping="Wrap" Opacity="0.8"><Run Text="Núcleo, criptografia, formato de backup e pack de ícones: projeto original Stratum para Android, criado por " /><Hyperlink Click="CreatorLink_Click"><Run Text="jamie-mh" /></Hyperlink><Run Text=". Todo o crédito vai para o projeto original. Licença: GPL-3.0-only." /></TextBlock>
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <Button Content="Abrir repositório (versão Windows)" Click="GithubButton_Click" />
                 <Button Content="Projeto original (Android)" Click="OriginalButton_Click" />
