@@ -34,7 +34,11 @@
         <ProjectReference Include="..\Stratum.Windows.Tray\Stratum.Windows.Tray.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <AppxManifest Include="Package.appxmanifest" />
         <Content Include="Assets\backup_template.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Assets\Tiles\*.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
         <!-- app.ico também vai junto do exe: AppWindow.SetIcon exige o arquivo no disco -->
@@ -50,13 +54,12 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-    <!-- dotnet publish omits the app's compiled XAML (.xbf) and PRI index for
-         unpackaged WinUI apps, which fail-fast at startup without them. -->
-    <!-- dotnet publish omits the app's compiled XAML (.xbf) and PRI index for
-         unpackaged WinUI apps, which fail-fast at startup without them.
+    <!-- dotnet publish (unpackaged) omits the app's compiled XAML (.xbf) and PRI
+         index, which fail-fast at startup without them. MSIX packaging handles
+         these files itself, so this runs for unpackaged output only.
          Copy them explicitly after publish (idempotent, no item conflicts). -->
     <Target Name="CopyAppXamlResourcesToPublish" AfterTargets="Publish"
-            Condition="'$(PublishDir)' != ''">
+            Condition="'$(PublishDir)' != '' and ('$(WindowsPackageType)' == 'None' or '$(WindowsPackageType)' == '')">
         <ItemGroup>
             <XamlPriPublishViews Include="$(OutDir)Views\*.xbf" />
         </ItemGroup>

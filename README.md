@@ -7,7 +7,22 @@ Suporta autenticadores TOTP (por tempo) e HOTP (por contador) com SHA1, SHA256 o
 
 ## Download e execução ⬇️
 
-Versão atual: **1.0.0** — app unpackaged (exe autocontido, sem instalação e sem MSIX).
+Versão atual: **1.0.0** — instalador **MSIX** (tipo Windows Store) com cert self-signed, além do exe autocontido.
+
+### 1. Instalador MSIX (recomendado) 🛍️
+
+```powershell
+# gera Stratum.Windows/AppPackages/...\Stratum.Windows_1.0.0.0_x64.msix
+# (cria o cert CN=Stratum, confia no store, publica e assina)
+powershell -ExecutionPolicy Bypass -File Stratum.Windows/publish-msix.ps1
+
+# instala (ou dê duplo clique no .msix via App Installer)
+Add-AppxPackage .\Stratum.Windows\AppPackages\Stratum.Windows_1.0.0.0_x64_Test\Stratum.Windows_1.0.0.0_x64.msix
+```
+
+O app aparece no Menu Iniciar como **Stratum**. O certificado só precisa ser confiado uma vez por máquina (o script faz isso automaticamente).
+
+### 2. Exe autocontido (unpackaged)
 
 ```powershell
 # compilar
