@@ -1,49 +1,58 @@
-# Contribution Guide 
+# Contribution Guide
 
-## Translations 💬
+## Development setup 🛠️
 
-Translations are now managed on Crowdin. Go to the [Stratum Crowdin project](https://crowdin.com/project/authenticator-pro) to contribute. If your language is not available, please contact me and I will add it.
-<br></br>
+Stratum for Windows is built with .NET 10 and WinUI 3 (Windows App SDK).
 
-## Icons ⏺️
+* Windows 10 version 1809 (build 17763) or later / Windows 11
+* [.NET 10 SDK](https://dotnet.microsoft.com/download) (or Visual Studio 2022 17.12+ with the .NET and WinUI workloads)
+* No extra workloads needed: `SQLitePCLRaw`, WinUI and SQLCipher come from NuGet
 
-If you'd like to contribute some icons, first check if there's [any open issues from user requests](https://github.com/stratumauth/app/issues?q=is%3Aopen+is%3Aissue+label%3Aicon).
+```powershell
+# restore + build (x64)
+dotnet build Stratum.Windows/Stratum.Windows.csproj -c Debug -p:Platform=x64
+
+# run the Core test suite
+dotnet test Stratum.Test/Stratum.Test.csproj -c Debug
+
+# publish a self-contained build (unpackaged exe)
+dotnet publish Stratum.Windows/Stratum.Windows.csproj -c Release -r win-x64 --self-contained
+```
+
+Project layout:
+
+* `Stratum.Core/` — shared core: OTP generation, backup format, converters, persistence contracts (also used by the Android app)
+* `Stratum.Windows/` — the WinUI 3 app (views, dialogs, database, settings)
+* `Stratum.Windows.Tray/` — system tray icon (isolated Win32 helper)
+* `Stratum.Test/` — xUnit tests for the core
+* `icons/` — brand icons shared with the Android app (`<name>.png`, optional `<name>_dark.png`)
+
+## Icons 🎨
+
+To add a brand icon, first check the criteria below, then place a square 128x128 transparent PNG in the `icons/` directory. Both the Android and the Windows app pick it up automatically (the Windows app also honours `_dark` variants).
 
 ### Icon criteria:
+
 Not every service needs an icon. To prevent the app having hundreds of icons from obscure and rarely used platforms, we limit what icons can be added. If a service doesn't meet the criteria we encourage the use of custom icons from within the app.
 
-- Platforms that use a 'Single Sign-On' should have the icon added for the sign-on account and not for the individual platforms. Eg: instead of a YouTube icon a Google icon would be needed, or instead of a Photoshop icon an Adobe icon should be used.
-- Web based platforms should be within [Similarweb's](https://www.similarweb.com) top 200,000 global rank. [Simply search for the site and see for yourself](https://www.similarweb.com).
-- Mobile platforms should have at least 100k+ downloads on the [Google Play Store](https://play.google.com/). 
-- If the service is not web based or on the Play Store it will have to be reviewed individually, in which case it's best to just [submit a request as a issue.](https://github.com/stratumauth/app/issues/new?assignees=&labels=enhancement&template=icon_request.md&title=)
+- Platforms that use a 'Single Sign-On' should have the icon added for the sign-on account and not for the individual platforms. Eg: instead of a YouTube icon a Google icon would be needed.
+- Web based platforms should be within a top global rank (see Similarweb top 200,000 as a reference).
+- Mobile platforms should have a significant install base (100k+ downloads as a reference).
+- If the service fits none of the above it will have to be reviewed individually — open an issue first.
 
 ### How to add an icon:
-To add an icon to the project the procedure is as follows:
 
 * Fork the repo
+* Find a high-quality icon for the service (prefer flat, original brand artwork, no text, no unnecessary frames/backgrounds)
+* Save it as a square 128x128 png with transparent background, filling as much space as possible
+* Name it lowercase with spaces and special characters removed. Eg: My Service -> myservice
+* Place the file in the `icons/` directory
+* If the icon needs a dark theme variant, repeat the process and append `_dark` to the name
+* Commit your changes and open a pull request
 
-* Find a high-quality icon for the service you want to add. Try searching online for '{service_name} brand' - generally, many services offer high-res versions of their logos and icons for press and media.
-  
-    * Avoid icons made by 3rd parties with different styles from the original
-    * Prefer flat icons instead of complex ones
-    * Avoid text
-    * Avoid unnecessary frames and backgrounds
-  
-* Save the icon as a square 128x128 png
+## Translations 🌐
 
-  * The icon must fill as much space as possible
-  * The background should be transparent
-
-* Name the icon as lowercase with spaces and special characters removed. Eg: My Service -> myservice 
-  
-* Place the file in the "icons" directory
-
-* If the icon requires a dark theme variant, repeat the process and append "_dark" to the name.
-
-* Commit your changes
-
-* Create a pull request with your changes
-<br></br>
+The Windows app currently ships in Portuguese only — there is no Crowdin pipeline wired up for it (unlike the Android app). Contributions adding WinUI localization resources are welcome; please open an issue first to agree on the approach.
 
 ## Code / Features ⚙️
 

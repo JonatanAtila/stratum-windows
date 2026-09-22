@@ -98,11 +98,13 @@
             </StackPanel>
 
             <TextBlock Text="Sobre" FontSize="20" FontWeight="Bold" />
-            <TextBlock Text="Stratum para Windows — app de autenticação de dois fatores (TOTP, HOTP, mOTP, Steam, Yandex), com backups criptografados, categorias e senha de banco de dados. Feito com WinUI 3 sobre o mesmo núcleo do app Android."
+            <TextBlock Text="Stratum para Windows 1.0.0 — app de autenticação de dois fatores (TOTP, HOTP, mOTP, Steam, Yandex). Construído sobre o núcleo do Stratum para Android."
                        TextWrapping="Wrap" Opacity="0.8" />
+            <TextBlock x:Name="VersionText" Opacity="0.6" />
+            <TextBlock x:Name="CreditsText" TextWrapping="Wrap" Opacity="0.8" />
             <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock x:Name="VersionText" Opacity="0.6" VerticalAlignment="Center" />
-                <Button Content="Abrir repositório no GitHub" Click="GithubButton_Click" />
+                <Button Content="Abrir repositório (versão Windows)" Click="GithubButton_Click" />
+                <Button Content="Projeto original (Android)" Click="OriginalButton_Click" />
             </StackPanel>
 
             <InfoBar x:Name="StatusBar" IsOpen="False" IsClosable="True" />

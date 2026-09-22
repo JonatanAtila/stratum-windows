@@ -5,19 +5,17 @@ on:
     branches:
       - master
       - develop
-  pull_request: 
+  pull_request:
     branches: [ master ]
   workflow_dispatch:
 
 env:
-  ANDROID_FRAMEWORK: net10.0-android
-  WEAROS_FRAMEWORK: net10.0-android
   CONFIGURATION: Release
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -28,51 +26,11 @@ jobs:
         with:
           dotnet-version: '10'
 
-      - name: Install Android workload
-        run: dotnet workload install android
-
-      - name: Install Android platform tools
-        run: $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install platform-tools
-
       - name: Restore NuGet packages
-        run: dotnet restore
+        run: dotnet restore Stratum.sln
 
       - name: Run tests
-        run: dotnet test --configuration $CONFIGURATION --no-restore --collect:"XPlat Code Coverage" --results-directory ./coverage Stratum.Test/Stratum.Test.csproj
+        run: dotnet test --configuration $env:CONFIGURATION --no-restore Stratum.Test/Stratum.Test.csproj
 
-      - name: Publish Android
-        run: |
-          REF=$(echo $GITHUB_SHA | cut -c -7)
-          sed -i "s|package=\"com.stratumauth.app\"|package=\"com.stratumauth.app.$REF\"|g" Stratum.Droid/Properties/AndroidManifest.xml
-          sed -i "s|<string name=\"displayName\" translatable=\"false\">Authenticator</string>|<string name=\"displayName\" translatable=\"false\">Authenticator ($REF)</string>|g" Stratum.Droid/Resources/values/strings.xml
-
-          dotnet publish -f:$ANDROID_FRAMEWORK -c:$CONFIGURATION --no-restore Stratum.Droid/Stratum.Droid.csproj
-          APK=$(find Stratum.Droid/bin/$CONFIGURATION/$ANDROID_FRAMEWORK/publish -name '*-Signed.apk')
-          mv $APK "com.stratumauth.app.$REF.apk"
-
-      - name: Publish Wear OS
-        run: |
-          REF=$(echo $GITHUB_SHA | cut -c -7)
-          sed -i "s|package=\"com.stratumauth.app\"|package=\"com.stratumauth.app.$REF\"|g" Stratum.WearOS/Properties/AndroidManifest.xml
-          sed -i "s|<string name=\"displayName\" translatable=\"false\">Authenticator</string>|<string name=\"displayName\" translatable=\"false\">Authenticator ($REF)</string>|g" Stratum.WearOS/Resources/values/strings.xml
-
-          dotnet publish -f:$WEAROS_FRAMEWORK -c:$CONFIGURATION --no-restore Stratum.WearOS/Stratum.WearOS.csproj
-          APK=$(find Stratum.WearOS/bin/$CONFIGURATION/$WEAROS_FRAMEWORK/publish -name '*-Signed.apk')
-          mv $APK "com.stratumauth.app.wearos.$REF.apk"
-
-      - name: Generate coverage report
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: coverage/**/coverage.cobertura.xml
-          badge: true
-          format: markdown
-          output: both
-          thresholds: '60 80'
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Stratum
-          path: |
-            com.stratumauth.app*.apk
-            code-coverage-results.md
+      - name: Build Windows app
+        run: dotnet build --configuration $env:CONFIGURATION --no-restore -p:Platform=x64 Stratum.Windows/Stratum.Windows.csproj
