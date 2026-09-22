@@ -12,15 +12,12 @@ Versão atual: **1.0.0** — instalador **MSIX** (tipo Windows Store) com cert s
 ### 1. Instalador MSIX (recomendado) 🛍️
 
 ```powershell
-# gera Stratum.Windows/AppPackages/...\Stratum.Windows_1.0.0.0_x64.msix
-# (cria o cert CN=Stratum, confia no store, publica e assina)
+# gera Stratum.Windows/AppPackages/...\Stratum.Windows_1.0.0.0_x64.msix,
+# confia o certificado na máquina (aceite o UAC) e instala
 powershell -ExecutionPolicy Bypass -File Stratum.Windows/publish-msix.ps1
-
-# instala (ou dê duplo clique no .msix via App Installer)
-Add-AppxPackage .\Stratum.Windows\AppPackages\Stratum.Windows_1.0.0.0_x64_Test\Stratum.Windows_1.0.0.0_x64.msix
 ```
 
-O app aparece no Menu Iniciar como **Stratum**. O certificado só precisa ser confiado uma vez por máquina (o script faz isso automaticamente).
+O app aparece no Menu Iniciar como **Stratum** e é desinstalado como qualquer app (Configurações → Aplicativos). O deploy AppX valida a assinatura contra a raiz confiável da **máquina**, então o script pede elevação (UAC) uma única vez para importar `dev-stratum.cer` em `LocalMachine\Root` — sem isso o pacote falha com `0x800B0109`/`0x800B010A`. Alternativa manual: dê duplo clique no `.msix` (App Installer).
 
 ### 2. Exe autocontido (unpackaged)
 
