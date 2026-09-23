@@ -707,7 +707,7 @@ namespace Stratum.Windows.Views
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 
@@ -724,7 +724,7 @@ namespace Stratum.Windows.Views
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿# Gera o pacote .msix do Stratum para Windows (sideload) e instala.
+# Gera o pacote .msix do Stratum para Windows (sideload) e instala.
 #
 #   powershell -ExecutionPolicy Bypass -File Stratum.Windows/publish-msix.ps1
 #
@@ -55,7 +55,6 @@ function Get-OrCreateCert {
         -CertStoreLocation 'Cert:\CurrentUser\My' `
         -TextExtension @('2.5.29.37={text}1.3.6.1.5.5.7.3.3', '2.5.29.19={text}ca=false') `
         -NotAfter (Get-Date).AddYears(5)
-
     Export-PfxCertificate -Cert $cert -FilePath $pfxPath -Password $pfxPassword -Force | Out-Null
     Export-Certificate -Cert $cert -FilePath $cerPath -Type CERT -Force | Out-Null
 

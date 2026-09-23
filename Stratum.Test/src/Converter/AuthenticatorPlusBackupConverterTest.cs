@@ -7,7 +7,7 @@ using Stratum.Core;
 using Stratum.Core.Backup;
 using Stratum.Core.Converter;
 using Moq;
-using Stratum.SQLCipher;
+using SQLitePCL;
 using Stratum.Test.Converter.Fixture;
 using Xunit;
 
@@ -20,8 +20,9 @@ namespace Stratum.Test.Converter
 
         public AuthenticatorPlusBackupConverterTest(AuthenticatorPlusBackupFixture authenticatorPlusBackupFixture)
         {
-            SqliteProvider.Init();
-            
+            raw.SetProvider(new SQLite3Provider_e_sqlcipher());
+            raw.FreezeProvider();
+
             _authenticatorPlusBackupFixture = authenticatorPlusBackupFixture;
 
             var iconResolver = new Mock<IIconResolver>();
