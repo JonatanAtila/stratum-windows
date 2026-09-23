@@ -71,6 +71,12 @@ dotnet test Stratum.Test/Stratum.Test.csproj -c Debug
 
 Estrutura: `Stratum.Core/` (núcleo compartilhado), `Stratum.Windows/` (app WinUI 3), `Stratum.Windows.Tray/` (ícone da bandeja), `Stratum.Test/` (testes xUnit), `icons/` (pack de logos).
 
+## Próximos passos 🗺️
+
+O próximo marco do projeto é localizar o Stratum para outros idiomas. A primeira versão do Windows está em português; a localização deverá abranger a interface WinUI, mensagens, diálogos, configurações, instalação e documentação, preservando os nomes técnicos e o formato compatível de backups.
+
+O trabalho será feito por etapas: primeiro a extração das strings para recursos localizáveis, depois a tradução dos idiomas priorizados e, por fim, a revisão nativa e os testes de layout. Veja o [guia de contribuição](./CONTRIBUTING.md) para participar.
+
 ## Créditos ❤️
 
 Este app é construído sobre o núcleo do **[Stratum para Android](https://github.com/stratumauth/app)**, criado por **jamie-mh** — todo o crédito pela criptografia, formato de backup, conversores e pack de ícones vai para o projeto original.

@@ -52,7 +52,15 @@ Not every service needs an icon. To prevent the app having hundreds of icons fro
 
 ## Translations 🌐
 
-The Windows app currently ships in Portuguese only — there is no Crowdin pipeline wired up for it (unlike the Android app). Contributions adding WinUI localization resources are welcome; please open an issue first to agree on the approach.
+The Windows app currently ships in Portuguese only. Localization for additional languages is the next project milestone.
+
+The planned work is:
+
+1. Extract user-facing strings from XAML and C# into WinUI localization resources.
+2. Define the initial language priority and add translations without changing technical terms or backup compatibility.
+3. Review each translation natively and test text expansion, dialogs, settings, installer metadata, and the README.
+
+There is no Crowdin pipeline wired up for the Windows app yet (unlike the Android app). Please open an issue before starting a translation so we can agree on the resource format, language priority, and review process. Translation contributions should include the relevant localization resources and any screenshots or notes needed to verify layout.
 
 ## Code / Features ⚙️
 
