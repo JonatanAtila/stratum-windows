@@ -1,4 +1,4 @@
-![Stratum](./doc/Rebranding/icon_transparent.png)
+![Stratum](./doc/Rebranding/Wordmark.png)
 # Stratum para Windows
 
 Um app gratuito e de código aberto de autenticação de dois fatores para **Windows 10/11**, com interface WinUI 3. Traz o mesmo núcleo do [Stratum para Android](https://github.com/stratumauth/app): backups criptografados, ícones, categorias e alto nível de personalização — com banco de dados e arquivos de backup **intercambiáveis** entre as duas plataformas.
